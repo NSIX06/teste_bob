@@ -46,18 +46,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Galeria Modal
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
-  const modalImage = document.getElementById('modalImage');
+ // Galeria Modal - Código corrigido
+const galleryItems = document.querySelectorAll('.gallery-item');
+const modalElement = document.getElementById('galleryModal');
+let modal = null;
+let modalImage = null;
+
+// Verifica se os elementos existem antes de inicializar
+if (modalElement) {
+  modal = new bootstrap.Modal(modalElement);
+  modalImage = document.getElementById('modalImage');
   
   galleryItems.forEach(item => {
     item.addEventListener('click', function() {
-      const imgSrc = this.querySelector('img').src;
-      modalImage.src = imgSrc;
-      modal.show();
+      const img = this.querySelector('img');
+      if (img && modalImage) {
+        modalImage.src = img.src;
+        modal.show();
+      }
     });
   });
+}
 
   // Validação do Formulário
   const contactForm = document.getElementById('contactForm');
